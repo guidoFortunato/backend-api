@@ -1,6 +1,6 @@
 # Backend para Aplicaciones interactivas - UADE
 
-Pasos para levantar el proyecto: 
+## Development
 
 1. Instalar las dependencias `npm install`
 2. Clonar el archivo de `.env.template` y renombrarlo a `.env`
