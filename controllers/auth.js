@@ -98,7 +98,7 @@ const revalidateToken = async(req, res = response) => {
   const uid = req.uid
   const name = req.name
 
-// Generar JWT
+  // Generar JWT
   const token = await generateJWT( uid, name )
 
 
