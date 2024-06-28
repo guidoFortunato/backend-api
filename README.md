@@ -25,6 +25,7 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
 ## Estructura de la base de datos
 
 #### USUARIOS
+<pre>
 ```json
 {
   "name": string,
@@ -34,7 +35,7 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
   "toWatchMovies": [],
   "watchedMovies": []
 }
-
+</pre>
 
 
 
