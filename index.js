@@ -19,7 +19,10 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/auth", require("./routes/auth"));
-app.use("/api/movies", require("./routes/movies"));
+// app.use("/api/movies", require("./routes/movies"));
+app.use("/api/user/favorites/", require("./routes/movies"));
+app.use("/api/user/to-watch/", require("./routes/toWatchMovies"));
+app.use("/api/user/watched/", require("./routes/watched"));
 
 //Escuchar peticiones
 app.listen(process.env.PORT, () => {

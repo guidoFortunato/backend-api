@@ -1,7 +1,8 @@
 const Movie = require("../models/Movie");
 const User = require("../models/User");
 
-const getMoviesFavoriteUser = async (req, res) => {
+
+const getMoviesToWatchUser = async (req, res) => {
   const userId = req.params.userId;
   try {
     // const movies = await Movie.find({ user: userId });
@@ -14,11 +15,11 @@ const getMoviesFavoriteUser = async (req, res) => {
       });
     }
 
-    user = await User.findById(userId).populate("favoriteMovies");
-    console.log({user})
+    user = await User.findById(userId).populate("toWatchMovies");
+    // console.log({user})
 
 
-    return res.status(200).json({ ok: true, favoriteMovies: user.favoriteMovies});
+    return res.status(200).json({ ok: true, toWatchMovies: user.toWatchMovies});
   } catch (error) {
     console.log({ error });
     return res.status(500).json({
@@ -28,7 +29,7 @@ const getMoviesFavoriteUser = async (req, res) => {
   }
 };
 
-const addMovieFavorite = async (req, res) => {
+const addMovieToWatch = async (req, res) => {
   const { title, media_type, trailerUrl, overview } = req.body;
   const userId = req.uid;
 
@@ -43,8 +44,9 @@ const addMovieFavorite = async (req, res) => {
       });
     }
 
-    user = await User.findById(userId).populate("favoriteMovies");
-    const existingMovie = user.favoriteMovies.find(
+    user = await User.findById(userId).populate("toWatchMovies");
+
+    const existingMovie = user.toWatchMovies.find(
       (movie) => movie.title.toLowerCase() === title.toLowerCase()
     );
 
@@ -63,7 +65,7 @@ const addMovieFavorite = async (req, res) => {
     });
     await movie.save();
 
-    user.favoriteMovies.push(movie._id);
+    user.toWatchMovies.push(movie._id);
     await user.save();
 
     return res
@@ -77,7 +79,7 @@ const addMovieFavorite = async (req, res) => {
   }
 };
 
-const removeMovieFavorite = async (req, res) => {
+const removeMovieToWatch = async (req, res) => {
   const movieId = req.params.id;
   const userId = req.uid;
 
@@ -101,9 +103,9 @@ const removeMovieFavorite = async (req, res) => {
     }
 
     // Encontrar el usuario y poblar las películas
-    user = await User.findById(userId).populate("favoriteMovies");
+    user = await User.findById(userId).populate("toWatchMovies");
     //Lista de peliculas del usuario
-    const moviesUser = user.favoriteMovies;
+    const moviesUser = user.toWatchMovies;
 
     const isMovieUser = moviesUser.find(
       (movie) => movie._id.toString() === movieId
@@ -123,7 +125,7 @@ const removeMovieFavorite = async (req, res) => {
 
     // actualizar el user
     await User.findByIdAndUpdate(userId, {
-      favoriteMovies: newMovies,
+      toWatchMovies: newMovies,
     });
 
     await Movie.findByIdAndDelete(movieId);
@@ -137,8 +139,9 @@ const removeMovieFavorite = async (req, res) => {
   }
 };
 
+
 module.exports = {
-  addMovieFavorite,
-  getMoviesFavoriteUser,
-  removeMovieFavorite,
+  addMovieToWatch,
+  getMoviesToWatchUser,
+  removeMovieToWatch,
 };

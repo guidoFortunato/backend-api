@@ -16,11 +16,23 @@ const userSchema = Schema({
     type: String,
     required: true,
   },
-  movies: [
-    { 
+  favoriteMovies: [
+    {
       type: Schema.Types.ObjectId,
-      ref: "Movie" 
-    }
+      ref: "Movie",
+    },
+  ],
+  toWatchMovies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Movie",
+    },
+  ],
+  watchedMovies: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Movie",
+    },
   ],
 });
 
