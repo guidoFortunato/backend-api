@@ -25,21 +25,20 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
 ## Estructura de la base de datos
 
 #### USUARIOS
-<pre>
+
 ```json
 {
-  "name": string,
+  "name": String,
   "email": String,
   "password": String,
   "favoriteMovies": [],
   "toWatchMovies": [],
   "watchedMovies": []
 }
-</pre>
 
-
-
-
-
-
-
+#### PELICULAS/SERIES
+```json
+{
+  "name": String,
+  "email": String,
+}
