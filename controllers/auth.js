@@ -115,11 +115,13 @@ const revalidateToken = async(req, res = response) => {
 const userToken = async(req, res = response) => {
   
   const name = req.name
+  const uid = req.uid
 
 
   res.json({
     ok: true,
     name,
+    uid
   });
 };
 
