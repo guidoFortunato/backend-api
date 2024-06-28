@@ -26,7 +26,7 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
 
 #### USUARIOS
 
-```json
+<pre>
 {
   "name": String,
   "email": String,
@@ -35,6 +35,7 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
   "toWatchMovies": [],
   "watchedMovies": []
 }
+</pre>
 
 #### PELICULAS/SERIES
 ```json
