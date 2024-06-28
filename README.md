@@ -40,6 +40,6 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
 #### PELICULAS/SERIES
 ```json
 {
-  "name": "String",
-  "email": 'String',
+  "name": String,
+  "email": String,
 }
