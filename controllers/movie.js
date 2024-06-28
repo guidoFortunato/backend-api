@@ -29,7 +29,7 @@ const getMoviesFavoriteUser = async (req, res) => {
 };
 
 const addMovieFavorite = async (req, res) => {
-  const { title, media_type, trailerUrl, overview } = req.body;
+  const { title, media_type, image, movieId, trailerUrl, overview } = req.body;
   const userId = req.uid;
 
   try {
@@ -56,6 +56,8 @@ const addMovieFavorite = async (req, res) => {
     }
     const movie = new Movie({
       title,
+      image,
+      movieId,
       media_type,
       trailerUrl,
       overview,

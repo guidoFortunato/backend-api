@@ -25,8 +25,6 @@ router.put(
   "/",
   [
     check("title", "title es obligatorio").not().isEmpty(),
-    check("description", "description es obligatoria").not().isEmpty(),
-    check("media_type", "media_type es obligatorio").not().isEmpty(),
     validateFields
   ],
   addMovieWatched

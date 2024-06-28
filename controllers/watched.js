@@ -30,7 +30,7 @@ const getMoviesToWatchUser = async (req, res) => {
 };
 
 const addMovieWatched = async (req, res) => {
-  const { title, media_type, trailerUrl, overview } = req.body;
+  const { title, media_type, trailerUrl, overview, image, movieId } = req.body;
   const userId = req.uid;
 
   try {
@@ -57,6 +57,8 @@ const addMovieWatched = async (req, res) => {
     }
     const movie = new Movie({
       title,
+      image,
+      movieId,
       media_type,
       trailerUrl,
       overview,
