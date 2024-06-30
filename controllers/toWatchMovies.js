@@ -2,7 +2,7 @@ const Movie = require("../models/Movie");
 const User = require("../models/User");
 
 
-const getMoviesToWatchUser = async (req, res) => {
+const getMoviesUser = async (req, res) => {
   const userId = req.params.userId;
   try {
     // const movies = await Movie.find({ user: userId });
@@ -29,8 +29,8 @@ const getMoviesToWatchUser = async (req, res) => {
   }
 };
 
-const addMovieToWatch = async (req, res) => {
-  const { title, media_type, trailerUrl, overview } = req.body;
+const addMovie = async (req, res) => {
+  const { title, media_type, movieId, image } = req.body;
   const userId = req.uid;
 
   try {
@@ -58,11 +58,18 @@ const addMovieToWatch = async (req, res) => {
     }
     const movie = new Movie({
       title,
+      image,
+      movieId,
       media_type,
-      trailerUrl,
-      overview,
       user: userId,
     });
+    // const movie = new Movie({
+    //   title,
+    //   media_type,
+    //   trailerUrl,
+    //   overview,
+    //   user: userId,
+    // });
     await movie.save();
 
     user.toWatchMovies.push(movie._id);
@@ -79,7 +86,7 @@ const addMovieToWatch = async (req, res) => {
   }
 };
 
-const removeMovieToWatch = async (req, res) => {
+const removeMovie = async (req, res) => {
   const movieId = req.params.id;
   const userId = req.uid;
 
@@ -141,7 +148,7 @@ const removeMovieToWatch = async (req, res) => {
 
 
 module.exports = {
-  addMovieToWatch,
-  getMoviesToWatchUser,
-  removeMovieToWatch,
+  addMovie,
+  getMoviesUser,
+  removeMovie,
 };

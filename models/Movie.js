@@ -6,22 +6,17 @@ const movieSchema = Schema({
     type: String,
   },
   image: {
+    required: true,
     type: String,
   },
   media_type: {
     type: String,
     enum: ["movie", "tv"],
   },
-  description: { 
-    type: String 
-  },
   movieId: { 
+    required: true,
     type: String 
-  },
-  releaseDate: { 
-    type: Date 
-  },
-  
+  },  
   user: { 
     type: Schema.Types.ObjectId, 
     ref: "User" 

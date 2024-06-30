@@ -1,7 +1,7 @@
 const Movie = require("../models/Movie");
 const User = require("../models/User");
 
-const getMoviesFavoriteUser = async (req, res) => {
+const getMoviesUser = async (req, res) => {
   const userId = req.params.userId;
   try {
     // const movies = await Movie.find({ user: userId });
@@ -28,7 +28,7 @@ const getMoviesFavoriteUser = async (req, res) => {
   }
 };
 
-const addMovieFavorite = async (req, res) => {
+const addMovie = async (req, res) => {
   const { title, media_type, image, movieId, trailerUrl, overview } = req.body;
   const userId = req.uid;
 
@@ -59,8 +59,6 @@ const addMovieFavorite = async (req, res) => {
       image,
       movieId,
       media_type,
-      trailerUrl,
-      overview,
       user: userId,
     });
     await movie.save();
@@ -79,7 +77,7 @@ const addMovieFavorite = async (req, res) => {
   }
 };
 
-const removeMovieFavorite = async (req, res) => {
+const removeMovie = async (req, res) => {
   const movieId = req.params.id;
   const userId = req.uid;
 
@@ -140,7 +138,7 @@ const removeMovieFavorite = async (req, res) => {
 };
 
 module.exports = {
-  addMovieFavorite,
-  getMoviesFavoriteUser,
-  removeMovieFavorite,
+  addMovie,
+  getMoviesUser,
+  removeMovie,
 };

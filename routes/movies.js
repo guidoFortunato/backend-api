@@ -1,7 +1,7 @@
 const express = require('express');
 const { check } = require("express-validator");
 const { jwtValidate } = require("../middlewares/jwt-validate");
-const { addMovieFavorite, getMoviesFavoriteUser, removeMovieFavorite } = require('../controllers/movie');
+const { addMovie, getMoviesUser, removeMovie } = require('../controllers/movie');
 const { validateFields } = require('../middlewares/fields-validator');
 
 
@@ -17,7 +17,7 @@ router.get(
     check("userId", "El id es obligatorio").not().isEmpty(),
     validateFields
   ],
-  getMoviesFavoriteUser
+  getMoviesUser
 );
 
 //añadir pelicula
@@ -27,7 +27,7 @@ router.put(
     check("title", "title es obligatorio").not().isEmpty(),
     validateFields
   ],
-  addMovieFavorite
+  addMovie
 );
 
 
@@ -38,7 +38,7 @@ router.delete(
     check("id", "El id es obligatorio").not().isEmpty(),
     validateFields
   ],
-  removeMovieFavorite
+  removeMovie
 );
 
 module.exports = router;
