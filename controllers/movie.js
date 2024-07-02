@@ -15,7 +15,7 @@ const getMoviesUser = async (req, res) => {
     }
 
     user = await User.findById(userId).populate("favoriteMovies");
-    console.log({user})
+    // console.log({user})
 
 
     return res.status(200).json({ ok: true, favoriteMovies: user.favoriteMovies});
@@ -29,7 +29,7 @@ const getMoviesUser = async (req, res) => {
 };
 
 const addMovie = async (req, res) => {
-  const { title, media_type, image, movieId, trailerUrl, overview } = req.body;
+  const { title, media_type, image, movieId } = req.body;
   const userId = req.uid;
 
   try {
@@ -78,8 +78,13 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  const movieId = req.params.id;
+  let movieId = req.params.id;
   const userId = req.uid;
+  const { isIdDb } = req.body
+  let movieIdToRemove = null;
+  // let idToRemove = null;
+  // console.log({movieId})
+  // console.log({isIdDb})
 
   try {
     // Verificar si existe el usuario
@@ -92,22 +97,34 @@ const removeMovie = async (req, res) => {
       });
     }
 
-    let movie = await Movie.findById(movieId);
+    // let movie = await Movie.findById(movieId);
+    // console.log({movie})
 
-    if (!movie) {
-      return res
-        .status(404)
-        .json({ ok: false, message: "Película no encontrada" });
-    }
+    // if (!movie) {
+    //   return res
+    //     .status(404)
+    //     .json({ ok: false, message: "Película no encontrada" });
+    // }
 
     // Encontrar el usuario y poblar las películas
     user = await User.findById(userId).populate("favoriteMovies");
     //Lista de peliculas del usuario
     const moviesUser = user.favoriteMovies;
 
+    if (!isIdDb) {
+      movieIdToRemove = moviesUser.find( movie => movie.movieId === movieId)
+      if (movieIdToRemove) {
+        movieId = movieIdToRemove._id   
+      } 
+    }
+
+    console.log({moviesUser})
+    console.log({movieId})
+
     const isMovieUser = moviesUser.find(
-      (movie) => movie._id.toString() === movieId
+      (movie) => movie._id.toString() === movieId.toString()
     );
+    console.log({isMovieUser})
 
     if (!isMovieUser) {
       return res.status(404).json({

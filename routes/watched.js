@@ -25,6 +25,8 @@ router.put(
   "/",
   [
     check("title", "title es obligatorio").not().isEmpty(),
+    check("image", "image es obligatorio").not().isEmpty(),
+    check("movieId", "movieId es obligatorio").not().isEmpty(),
     validateFields
   ],
   addMovie
