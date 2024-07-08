@@ -17,8 +17,9 @@ const getMoviesUser = async (req, res) => {
     user = await User.findById(userId).populate("favoriteMovies");
     // console.log({user})
 
-
-    return res.status(200).json({ ok: true, favoriteMovies: user.favoriteMovies});
+    return res
+      .status(200)
+      .json({ ok: true, favoriteMovies: user.favoriteMovies });
   } catch (error) {
     console.log({ error });
     return res.status(500).json({
@@ -44,8 +45,9 @@ const addMovie = async (req, res) => {
     }
 
     user = await User.findById(userId).populate("favoriteMovies");
+
     const existingMovie = user.favoriteMovies.find(
-      (movie) => movie.title.toLowerCase() === title.toLowerCase()
+      (movie) => movie.movieId.toString() === movieId.toString()
     );
 
     if (existingMovie) {
@@ -54,13 +56,7 @@ const addMovie = async (req, res) => {
         message: "La película ya existe en la lista del usuario",
       });
     }
-    // const movie = new Movie({
-    //   title,
-    //   image,
-    //   movieId,
-    //   media_type,
-    //   user: userId,
-    // });
+
     const movie = {
       title,
       media_type,
@@ -85,14 +81,10 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  console.log("*********** Remove Movie Favorites *********************")
+  console.log("*********** Remove Movie Favorites *********************");
   let movieId = req.params.id;
   const userId = req.uid;
-  // const { isIdDb } = req.body
-  // let movieIdToRemove = null;
-  // let idToRemove = null;
-  console.log({movieId})
-  // console.log({isIdDb})
+  // console.log({movieId})
 
   try {
     // Verificar si existe el usuario
@@ -105,41 +97,16 @@ const removeMovie = async (req, res) => {
       });
     }
 
-    // let movie = await Movie.findById(movieId);
-    // console.log({movie})
-
-    // if (!movie) {
-    //   return res
-    //     .status(404)
-    //     .json({ ok: false, message: "Película no encontrada" });
-    // }
-
     // Encontrar el usuario y poblar las películas
     user = await User.findById(userId).populate("favoriteMovies");
+
     //Lista de peliculas del usuario
     const moviesUser = user.favoriteMovies;
-    // console.log({moviesUser})
-
-    // if (isIdDb) {
-    //   movieIdToRemove = moviesUser.find( movie => {
-    //     console.log('enrta a movieIdToRemove')
-    //     console.log({movie_id:  movie._id.toString()})
-    //     console.log({movieId})
-    //     movie._id.toString() === movieId
-    //   })
-    //   console.log({movieIdToRemove})
-    //   if (movieIdToRemove) {
-
-    //     movieId = movieIdToRemove.movieId   
-    //   } 
-    // }
-    console.log({movieId})
-
 
     const isMovieUser = moviesUser.find(
       (movie) => movie.movieId.toString() === movieId.toString()
     );
-    console.log({isMovieUser})
+    // console.log({isMovieUser})
 
     if (!isMovieUser) {
       return res.status(404).json({

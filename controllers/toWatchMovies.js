@@ -47,7 +47,7 @@ const addMovie = async (req, res) => {
     user = await User.findById(userId).populate("toWatchMovies");
 
     const existingMovie = user.toWatchMovies.find(
-      (movie) => movie.title.toLowerCase() === title.toLowerCase()
+      (movie) => movie.movieId.toString() === movieId.toString()
     );
 
     if (existingMovie) {
@@ -56,13 +56,6 @@ const addMovie = async (req, res) => {
         message: "La película ya existe en la lista del usuario",
       });
     }
-    // const movie = new Movie({
-    //   title,
-    //   image,
-    //   movieId,
-    //   media_type,
-    //   user: userId,
-    // });
 
     const movie = {
       title,
@@ -103,21 +96,13 @@ const removeMovie = async (req, res) => {
       });
     }
 
-    // let movie = await Movie.findById(movieId);
-
-    // if (!movie) {
-    //   return res
-    //     .status(404)
-    //     .json({ ok: false, message: "Película no encontrada" });
-    // }
-
     // Encontrar el usuario y poblar las películas
     user = await User.findById(userId).populate("toWatchMovies");
     //Lista de peliculas del usuario
     const moviesUser = user.toWatchMovies;
 
     const isMovieUser = moviesUser.find(
-      (movie) => movie._id.toString() === movieId
+      (movie) => movie.movieId.toString() === movieId.toString()
     );
 
     if (!isMovieUser) {
@@ -129,7 +114,7 @@ const removeMovie = async (req, res) => {
 
     // Excluir la película a eliminar
     const newMovies = moviesUser.filter(
-      (item) => item._id.toString() !== movieId
+      (item) => item.movieId.toString() !== movieId.toString()
     );
 
     // actualizar el user
@@ -137,7 +122,7 @@ const removeMovie = async (req, res) => {
       toWatchMovies: newMovies,
     });
 
-    await Movie.findByIdAndDelete(movieId);
+    // await Movie.findByIdAndDelete(movieId);
 
     res
       .status(200)

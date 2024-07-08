@@ -1,7 +1,6 @@
 const Movie = require("../models/Movie");
 const User = require("../models/User");
 
-
 const getMoviesUser = async (req, res) => {
   const userId = req.params.userId;
   try {
@@ -18,8 +17,9 @@ const getMoviesUser = async (req, res) => {
     user = await User.findById(userId).populate("watchedMovies");
     // console.log({user})
 
-
-    return res.status(200).json({ ok: true, watchedMovies: user.watchedMovies});
+    return res
+      .status(200)
+      .json({ ok: true, watchedMovies: user.watchedMovies });
   } catch (error) {
     console.log({ error });
     return res.status(500).json({
@@ -45,8 +45,9 @@ const addMovie = async (req, res) => {
     }
 
     user = await User.findById(userId).populate("watchedMovies");
+    
     const existingMovie = user.watchedMovies.find(
-      (movie) => movie.title.toLowerCase() === title.toLowerCase()
+      (movie) => movie.movieId.toString() === movieId.toString()
     );
 
     if (existingMovie) {
@@ -55,13 +56,7 @@ const addMovie = async (req, res) => {
         message: "La película ya existe en la lista del usuario",
       });
     }
-    // const movie = new Movie({
-    //   title,
-    //   image,
-    //   movieId,
-    //   media_type,
-    //   user: userId,
-    // });
+
     const movie = {
       title,
       media_type,
@@ -86,10 +81,9 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  console.log("*********** Remove Movie Watched *********************")
+  console.log("*********** Remove Movie Watched *********************");
   const movieId = req.params.id;
   const userId = req.uid;
-  console.log({movieId})
   // console.log({movieId})
 
   try {
@@ -103,22 +97,16 @@ const removeMovie = async (req, res) => {
       });
     }
 
-    // let movie = await Movie.findById(movieId);
-
-    // if (!movie) {
-    //   return res
-    //     .status(404)
-    //     .json({ ok: false, message: "Película no encontrada" });
-    // }
-
     // Encontrar el usuario y poblar las películas
     user = await User.findById(userId).populate("watchedMovies");
     //Lista de peliculas del usuario
     const moviesUser = user.watchedMovies;
+    // console.log({moviesUser})
 
     const isMovieUser = moviesUser.find(
-      (movie) => movie._id.toString() === movieId
+      (movie) => movie.movieId.toString() === movieId.toString()
     );
+    // console.log({isMovieUser})
 
     if (!isMovieUser) {
       return res.status(404).json({
@@ -129,7 +117,7 @@ const removeMovie = async (req, res) => {
 
     // Excluir la película a eliminar
     const newMovies = moviesUser.filter(
-      (item) => item._id.toString() !== movieId
+      (item) => item.movieId.toString() !== movieId.toString()
     );
 
     // actualizar el user
@@ -137,7 +125,7 @@ const removeMovie = async (req, res) => {
       watchedMovies: newMovies,
     });
 
-    await Movie.findByIdAndDelete(movieId);
+    // await Movie.findByIdAndDelete(movieId);
 
     res
       .status(200)
@@ -147,7 +135,6 @@ const removeMovie = async (req, res) => {
     res.status(500).json({ ok: false, message: "Error al eliminar película" });
   }
 };
-
 
 module.exports = {
   addMovie,
