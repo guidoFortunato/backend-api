@@ -1,5 +1,28 @@
 const { Schema, model } = require("mongoose");
 
+const movieSchema = Schema({
+  title: {
+    required: true,
+    type: String,
+  },
+  image: {
+    required: true,
+    type: String,
+  },
+  media_type: {
+    type: String,
+    enum: ["movie", "tv"],
+  },
+  movieId: { 
+    required: true,
+    type: String 
+  },  
+  user: { 
+    type: Schema.Types.ObjectId, 
+    ref: "User" 
+  },
+});
+
 const userSchema = Schema({
   name: {
     type: String,
@@ -16,24 +39,9 @@ const userSchema = Schema({
     type: String,
     required: true,
   },
-  favoriteMovies: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Movie",
-    },
-  ],
-  toWatchMovies: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Movie",
-    },
-  ],
-  watchedMovies: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Movie",
-    },
-  ],
+  favoriteMovies: [movieSchema],
+  toWatchMovies: [movieSchema],
+  watchedMovies: [movieSchema],
 });
 
 module.exports = model("User", userSchema);

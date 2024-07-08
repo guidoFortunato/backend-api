@@ -16,7 +16,7 @@ const getMoviesUser = async (req, res) => {
     }
 
     user = await User.findById(userId).populate("watchedMovies");
-    console.log({user})
+    // console.log({user})
 
 
     return res.status(200).json({ ok: true, watchedMovies: user.watchedMovies});
@@ -55,16 +55,23 @@ const addMovie = async (req, res) => {
         message: "La película ya existe en la lista del usuario",
       });
     }
-    const movie = new Movie({
+    // const movie = new Movie({
+    //   title,
+    //   image,
+    //   movieId,
+    //   media_type,
+    //   user: userId,
+    // });
+    const movie = {
       title,
+      media_type,
       image,
       movieId,
-      media_type,
       user: userId,
-    });
-    await movie.save();
+    };
+    // await movie.save();
 
-    user.watchedMovies.push(movie._id);
+    user.watchedMovies.push(movie);
     await user.save();
 
     return res
@@ -79,8 +86,11 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
+  console.log("*********** Remove Movie Watched *********************")
   const movieId = req.params.id;
   const userId = req.uid;
+  console.log({movieId})
+  // console.log({movieId})
 
   try {
     // Verificar si existe el usuario
@@ -93,13 +103,13 @@ const removeMovie = async (req, res) => {
       });
     }
 
-    let movie = await Movie.findById(movieId);
+    // let movie = await Movie.findById(movieId);
 
-    if (!movie) {
-      return res
-        .status(404)
-        .json({ ok: false, message: "Película no encontrada" });
-    }
+    // if (!movie) {
+    //   return res
+    //     .status(404)
+    //     .json({ ok: false, message: "Película no encontrada" });
+    // }
 
     // Encontrar el usuario y poblar las películas
     user = await User.findById(userId).populate("watchedMovies");
