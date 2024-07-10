@@ -30,6 +30,7 @@ const getMoviesUser = async (req, res) => {
 };
 
 const addMovie = async (req, res) => {
+  console.log("*********** Add Movie ToWatchMovies *********************")
   const { title, media_type, movieId, image } = req.body;
   const userId = req.uid;
 

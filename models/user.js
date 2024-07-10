@@ -6,12 +6,12 @@ const movieSchema = Schema({
     type: String,
   },
   image: {
-    required: true,
     type: String,
   },
   media_type: {
+    required: true,
     type: String,
-    enum: ["movie", "tv"],
+    enum: ["movie", "tv", "person"],
   },
   movieId: { 
     required: true,
