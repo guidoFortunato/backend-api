@@ -32,6 +32,7 @@ const getMoviesUser = async (req, res) => {
 const addMovie = async (req, res) => {
   const { title, media_type, image, movieId } = req.body;
   const userId = req.uid;
+  // console.log(req.body)
 
   try {
     // Verificar si existe el usuario
