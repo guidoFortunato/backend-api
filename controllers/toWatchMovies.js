@@ -15,7 +15,6 @@ const getMoviesUser = async (req, res) => {
     }
 
     user = await User.findById(userId).populate("toWatchMovies");
-    // console.log({user})
 
 
     return res.status(200).json({ ok: true, toWatchMovies: user.toWatchMovies});
