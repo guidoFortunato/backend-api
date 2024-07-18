@@ -29,7 +29,7 @@
 }
 </pre>
 
-#### PELICULAS/SERIES
+#### LISTAS
 <pre>
 {
   "title": String,
