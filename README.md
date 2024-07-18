@@ -13,14 +13,6 @@
 > [!TIP]
 > En el template de .env hay que completar con una url a la base de datos, la contraseña y el puerto en el cual se va a querer correr el proyecto
 
-## Tecnologias utilizadas
-Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no relacional, Express.js para crear APIs en el lado del servidor, React para construir interfaces deusuario interactivas y Node.js como entorno de ejecucion del lado del servidor. 
-
-## Diagrama de Entidad-Relacion
-
-
-
-
 
 ## Estructura de la base de datos
 
@@ -38,8 +30,12 @@ Empleamos la tecnologia MERN, que combina MongoDB como nuestra base de datos no 
 </pre>
 
 #### PELICULAS/SERIES
-```json
+<pre>
 {
-  "name": String,
-  "email": String,
+  "title": String,
+  "image": String,
+  "media_type": String,
+  "movieId": String,
+  "user": Schema.Types.ObjectId
 }
+</pre>
