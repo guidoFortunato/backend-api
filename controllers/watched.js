@@ -80,7 +80,7 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  console.log("*********** Remove Movie Watched *********************");
+  // console.log("*********** Remove Movie Watched *********************");
   const movieId = req.params.id;
   const userId = req.uid;
   // console.log({movieId})

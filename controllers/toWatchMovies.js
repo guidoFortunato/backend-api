@@ -28,7 +28,7 @@ const getMoviesUser = async (req, res) => {
 };
 
 const addMovie = async (req, res) => {
-  console.log("*********** Add Movie ToWatchMovies *********************")
+  // console.log("*********** Add Movie ToWatchMovies *********************")
   const { title, media_type, movieId, image } = req.body;
   const userId = req.uid;
 
@@ -80,7 +80,7 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  console.log("*********** Remove Movie ToWatchMovies *********************")
+  // console.log("*********** Remove Movie ToWatchMovies *********************")
   const movieId = req.params.id;
   const userId = req.uid;
 

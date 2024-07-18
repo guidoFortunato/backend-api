@@ -81,7 +81,7 @@ const addMovie = async (req, res) => {
 };
 
 const removeMovie = async (req, res) => {
-  console.log("*********** Remove Movie Favorites *********************");
+  // console.log("*********** Remove Movie Favorites *********************");
   let movieId = req.params.id;
   const userId = req.uid;
   // console.log({movieId})
